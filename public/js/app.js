@@ -1730,25 +1730,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      tasks: [{
-        id: 1,
-        title: 'Task1',
-        priority: 'low'
-      }, {
-        id: 2,
-        title: 'Task2',
-        priority: 'low'
-      }, {
-        id: 3,
-        title: 'Task3',
-        priority: 'low'
-      }],
+      tasks: [],
       message: 'hello vue.js'
     };
+  },
+  methods: {
+    readTasks: function readTasks() {
+      var _this = this;
+
+      axios.get('/api/tasks').then(function (_ref) {
+        var data = _ref.data;
+        data.forEach(function (task) {
+          _this.tasks.push(task);
+        });
+      });
+    }
+  },
+  created: function created() {
+    this.readTasks();
   },
   components: {
     Task: _Task_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -1766,6 +1771,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -37206,6 +37212,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Task Title")]),
         _vm._v(" "),
         _c("th", [_vm._v("Priority")]),
@@ -37219,6 +37227,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
+      _c("td"),
+      _vm._v(" "),
       _c("td", [
         _c("input", {
           staticClass: "form-control",
@@ -37268,6 +37278,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
+    _c("td", [_vm._v(_vm._s(_vm.task.id))]),
+    _vm._v(" "),
     _c("td", { attrs: { scope: "row" } }, [_vm._v(_vm._s(_vm.task.title))]),
     _vm._v(" "),
     _c("td", [_vm._v(_vm._s(_vm.task.priority))]),
@@ -37283,7 +37295,7 @@ var staticRenderFns = [
     return _c("td", [
       _c(
         "button",
-        { staticClass: "btn btn-outline-danger", attrs: { type: "button" } },
+        { staticClass: "btn btn-danger", attrs: { type: "button" } },
         [_vm._v("Remove")]
       )
     ])

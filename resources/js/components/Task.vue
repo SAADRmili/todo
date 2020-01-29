@@ -1,10 +1,11 @@
 <template>
        
                       <tr>
+                          <td>{{ task.id}}</td>
                           <td scope="row">{{ task.title}}</td>
                           <td>{{ task.priority}}</td>
                           <td>
-                              <button type="button" class="btn btn-outline-danger">Remove</button>
+                              <button type="button" class="btn btn-danger">Remove</button>
                           </td>
                       </tr>
                     

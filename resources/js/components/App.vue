@@ -3,6 +3,7 @@
               <table class="table">
                   <thead>
                       <tr>
+                          <th>ID</th>
                           <th>Task Title</th>
                           <th>Priority</th>
                           <th>Action</th>
@@ -12,6 +13,7 @@
                       <task v-for="task in tasks" :key='task.id' :task="task"></task>
 
                        <tr>
+                           <td></td>
                          <td><input type="text" id="text" class="form-control"></td>
                          <td>
                              <select  id="select" class="form-control">
@@ -36,24 +38,25 @@ export default {
     data(){
         return{
             tasks:[
-                {
-                    id:1,
-                    title:'Task1',
-                    priority:'low'
-                },
-                {
-                    id:2,
-                    title:'Task2',
-                    priority:'low'
-                },
-                {
-                    id:3,
-                    title:'Task3',
-                    priority:'low'
-                },
+               
             ],
             message:'hello vue.js'
         }
+    },
+
+    methods:{
+
+        readTasks(){
+
+            axios.get('/api/tasks').then(({data})=>{
+                data.forEach(task=>{
+                    this.tasks.push(task)
+                });
+            });
+        }
+    },
+    created(){
+        this.readTasks();
     },
     components:{Task}
 }
