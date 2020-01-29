@@ -1,9 +1,11 @@
 <template>
        
                       <tr>
-                          <td scope="row">XXXX</td>
-                          <td>XXXXX</td>
-                          <td>XXXXX</td>
+                          <td scope="row">{{ task.title}}</td>
+                          <td>{{ task.priority}}</td>
+                          <td>
+                              <button type="button" class="btn btn-outline-danger">Remove</button>
+                          </td>
                       </tr>
                     
                 
@@ -12,9 +14,10 @@
 
 <script>
 export default {
+    props:['task'],
     data(){
         return{
-
+            
         }
     }
 }

@@ -9,7 +9,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <task></task>
+                      <task v-for="task in tasks" :key='task.id' :task="task"></task>
 
                        <tr>
                          <td><input type="text" id="text" class="form-control"></td>
@@ -35,6 +35,23 @@ import Task from './Task.vue';
 export default {
     data(){
         return{
+            tasks:[
+                {
+                    id:1,
+                    title:'Task1',
+                    priority:'low'
+                },
+                {
+                    id:2,
+                    title:'Task2',
+                    priority:'low'
+                },
+                {
+                    id:3,
+                    title:'Task3',
+                    priority:'low'
+                },
+            ],
             message:'hello vue.js'
         }
     },
