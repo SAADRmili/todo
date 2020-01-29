@@ -1,5 +1,7 @@
 <template>
         <div class="app-component">
+             <loading :active.sync="isLoading" ></loading>
+        
               <table class="table">
                   <thead>
                       <tr>
@@ -10,7 +12,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <task v-for="task in tasks" :key='task.id' :task="task"></task>
+                      <task v-for="task in tasks" :key='task.id' :task="task" @delete='remove'></task>
 
                        <tr>
                            <td></td>
@@ -34,6 +36,10 @@
 
 <script>
 import Task from './Task.vue';
+  // Import component
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
     data(){
         return{
@@ -41,7 +47,8 @@ export default {
                
             ],
             message:'hello vue.js',
-            task:{title:'',priority:''}
+            task:{title:'',priority:''},
+            isLoading: false,
         }
     },
 
@@ -67,18 +74,36 @@ export default {
         //    }).then(({data})=>{
         //        console.log(data);
         //    })
-
-
-               axios.post('/api/tasks',this.task).then(save=>{
-               this.tasks.push(save.data);
-               
-           });
+            if(this.checkInput())
+            {
+                this.isLoading=true;
+                     axios.post('/api/tasks',this.task).then(save=>{
+                     this.tasks.push(save.data);
+                this.task.title='';
+                this.task.priority='';
+                this.isLoading=false;
+                });
+            }
+              
+        },
+        checkInput(){
+            if(this.task.title && this.task.priority) return true;
+        },
+        remove(id){
+               this.isLoading = true;
+                // simulate AJAX
+             
+            axios.delete(`/api/tasks/${id}`).then(()=>{
+                let index = this.tasks.findIndex(task=>task.id === id);
+                this.tasks.splice(index,1);
+                this.isLoading=false
+            });
         }
     },
     created(){
         this.readTasks();
     },
-    components:{Task}
+    components:{Task,Loading}
 }
 </script>
 <style>

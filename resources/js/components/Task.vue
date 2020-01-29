@@ -5,7 +5,7 @@
                           <td scope="row">{{ task.title}}</td>
                           <td>{{ task.priority}}</td>
                           <td>
-                              <button type="button" class="btn btn-danger">Remove</button>
+                              <button @click.prevent="remove()" type="button" class="btn btn-danger">Remove</button>
                           </td>
                       </tr>
                     
@@ -19,6 +19,12 @@ export default {
     data(){
         return{
             
+        }
+    },
+
+    methods:{
+        remove(){
+           this.$emit('delete',this.task.id)
         }
     }
 }
