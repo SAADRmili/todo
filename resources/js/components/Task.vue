@@ -1,7 +1,13 @@
 <template>
-        <div class="task-component">
-                <p>Task</p>
-        </div>
+       
+                      <tr>
+                          <td scope="row">XXXX</td>
+                          <td>XXXXX</td>
+                          <td>XXXXX</td>
+                      </tr>
+                    
+                
+       
 </template>
 
 <script>
