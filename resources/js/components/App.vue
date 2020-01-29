@@ -1,6 +1,6 @@
 <template>
         <div class="app-component">
-                <p>App</p>
+                <p>{{message}}</p>
         </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
     data(){
         return{
-
+            message:'hello vue.js'
         }
     }
 }
