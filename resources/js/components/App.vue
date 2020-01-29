@@ -14,16 +14,16 @@
 
                        <tr>
                            <td></td>
-                         <td><input type="text" id="text" class="form-control"></td>
+                         <td><input v-model="task.title" type="text" id="text" class="form-control"></td>
                          <td>
-                             <select  id="select" class="form-control">
+                             <select  v-model="task.priority" id="select" class="form-control">
                                  <option >Low</option>
                                  <option >Medium</option>
                                  <option >High</option>
                              </select>
                         </td>
                              <td>
-                                 <button type="button" class="btn btn-outline-primary">ADD</button>
+                                 <button @click.prevent="store" type="button" class="btn btn-outline-primary">ADD</button>
                              </td>
                       </tr>
                 
@@ -40,7 +40,8 @@ export default {
             tasks:[
                
             ],
-            message:'hello vue.js'
+            message:'hello vue.js',
+            task:{title:'',priority:''}
         }
     },
 
@@ -53,6 +54,25 @@ export default {
                     this.tasks.push(task)
                 });
             });
+        },
+
+        store(){
+           // console.log(this.task.title+' '+this.task.priority);
+           //hadchi dyau
+        //    axios.post('/api/tasks',{
+        //        title:this.task.title,
+        //        priority:this.task.priority
+        //    }).catch(({errors})=>{
+        //        console.log('Something went wrong')
+        //    }).then(({data})=>{
+        //        console.log(data);
+        //    })
+
+
+               axios.post('/api/tasks',this.task).then(save=>{
+               this.tasks.push(save.data);
+               
+           });
         }
     },
     created(){
